@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ExamCore.Models.Question>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="col-12 stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <p>
+                    <a asp-action="Create">Create New</a>
+                </p>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Code</th>
+                            <th>Content</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Subject.Name</td>
+                                <td>@item.Subject.Code</td>
+                                <td>@item.Content</td>
+                                <td>
+                                    <a asp-action="Detail" asp-route-id="@item.Id"><label class="badge badge-info">Detail</label></a>
+                                </td>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id"><label class="badge badge-warning">Edit</label></a>
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.Id"><label class="badge badge-danger">Delete</label></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
