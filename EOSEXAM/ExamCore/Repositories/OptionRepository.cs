@@ -22,6 +22,7 @@ namespace ExamCore.Repositories
 
         public void Add(Option _Option)
         {
+            Db.Question.Add(_Option.Question);
             Db.Option.Add(_Option);
             Db.SaveChanges();
         }
@@ -39,8 +40,18 @@ namespace ExamCore.Repositories
 
         public IEnumerable<Option> GetOptionsByQuestionId(int? questionId)
         {
-            var Options = Db.Option.Where(o => o.QuestionId == questionId);
-            return Options;
+            var Options = from o in Db.Option
+                          join q in Db.Question
+                          on o.QuestionId equals q.Id
+                          where o.QuestionId == questionId
+                          select new Option{
+                              Id = o.Id,
+                              QuestionId = o.QuestionId,
+                              Question = q,
+                              Content = o.Content,
+                              IsRight = o.IsRight
+                          };
+            return Options.ToList();
         }
 
         public Option GetTrueOption(int? questionId)

@@ -1,33 +1,62 @@
-﻿@model ExamCore.Models.Question
+﻿@model dynamic
 
 @{
-    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Question</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Subject)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Subject.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="row">
+    <div class="col-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td>Subject</td>
+                                <td>@Model.Question.Subject.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Question</td>
+                                <td>@Model.Question.Content</td>
+                            </tr>
+                            <tr>
+                                <td>Options</td>
+                                <td>
+                                    <ol>
+                                        @foreach (var item in Model.Options)
+                                        {
+                                            <li style="list-style-type:circle">@item.Content</li>
+                                        }
+                                    </ol>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Answer</td>
+                                <td>
+                                    <ol>
+                                        @foreach (var item in Model.Options)
+                                        {
+                                            if (item.IsRight == true)
+                                            {
+                                                <li style="list-style-type:circle">@item.Content</li>
+                                            }
+                                        }
+                                    </ol>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <form asp-action="Delete">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger mr-2">Delete</button>
+                            <button asp-action="Index" class="btn btn-light">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

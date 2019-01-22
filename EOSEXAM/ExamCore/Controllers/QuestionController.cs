@@ -31,17 +31,18 @@ namespace ExamCore.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var Subjects = _Subject.All;
-            
+            List<Subject> Subjects = _Subject.All.ToList();
+            ViewBag.ListOfSubject = Subjects;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Question model)
+        public IActionResult Create(Option model)
         {
             if (ModelState.IsValid)
             {
-                _Question.Add(model);
+                _Question.Add(model.Question);
+                _Option.Add(model);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -55,7 +56,10 @@ namespace ExamCore.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View(question);
+            dynamic models = new ExpandoObject();
+            models.Question = question;
+            models.Options = _Option.GetOptionsByQuestionId(Id);
+            return View(models);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -73,15 +77,20 @@ namespace ExamCore.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return View(question);
+            var  models = _Option.GetOptionsByQuestionId(Id);
+            IEnumerable<Option> Options = _Option.GetOptionsByQuestionId(Id);
+            ViewBag.ListOfOption = Options;
+            List<Subject> Subjects = _Subject.All.ToList();
+            ViewBag.ListOfSubject = Subjects;
+            return View(models);
         }
 
         [HttpPost]
-        public IActionResult Edit(Question Question)
+        public IActionResult Edit(Option Option)
         {
             if (ModelState.IsValid)
             {
-                _Question.Edit(Question);
+                _Option.Edit(Option);
                 return RedirectToAction("Index");
             }
             return View();
@@ -98,7 +107,6 @@ namespace ExamCore.Controllers
             dynamic models = new ExpandoObject();
             models.Question = question;
             models.Options = _Option.GetOptionsByQuestionId(Id);
-            models.OptionTrue = _Option.GetTrueOption(Id);
             return View(models);
         }
     }

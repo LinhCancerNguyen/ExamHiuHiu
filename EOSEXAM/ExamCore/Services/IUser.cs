@@ -13,5 +13,6 @@ namespace ExamCore.Services
         void Add(User _User);
         void Remove(int? Id);
         void Edit(User _User);
+        User GetLogin(string Email, string Password);
     }
 }

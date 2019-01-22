@@ -10,14 +10,41 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <tr>
-                            <td>Subject</td>
-                            <td>@Model.Question.Subject.Name</td>
-                        </tr>
-                        <tr>
-                            <td>Question</td>
-                            <td>@Model.Question.Content</td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>Subject</td>
+                                <td>@Model.Question.Subject.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Question</td>
+                                <td>@Model.Question.Content</td>
+                            </tr>
+                            <tr>
+                                <td>Options</td>
+                                <td>
+                                    <ol>
+                                        @foreach (var item in Model.Options)
+                                        {
+                                            <li style="list-style-type:circle">@item.Content</li>
+                                        }
+                                    </ol>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Answer</td>
+                                <td>
+                                    <ol>
+                                        @foreach (var item in Model.Options)
+                                        {
+                                            if (item.IsRight == true)
+                                            {
+                                                <li style="list-style-type:circle">@item.Content</li>
+                                            }
+                                        }
+                                    </ol>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div>
@@ -28,5 +55,4 @@
         </div>
     </div>
 </div>
-
 

@@ -12567,11 +12567,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\EOSEXAM\\ExamCore\\ExamCore.csproj",
+      "projectUniqueName": "D:\\ExamHiuHiu\\EOSEXAM\\ExamCore\\ExamCore.csproj",
       "projectName": "ExamCore",
-      "projectPath": "D:\\EOSEXAM\\ExamCore\\ExamCore.csproj",
+      "projectPath": "D:\\ExamHiuHiu\\EOSEXAM\\ExamCore\\ExamCore.csproj",
       "packagesPath": "C:\\Users\\linh.nguyenthithuy1\\.nuget\\packages\\",
-      "outputPath": "D:\\EOSEXAM\\ExamCore\\obj\\",
+      "outputPath": "D:\\ExamHiuHiu\\EOSEXAM\\ExamCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

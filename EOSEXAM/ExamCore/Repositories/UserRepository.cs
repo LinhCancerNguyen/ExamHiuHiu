@@ -32,6 +32,14 @@ namespace ExamCore.Repositories
             Db.SaveChanges();
         }
 
+        public User GetLogin(string Email, string Password)
+        {
+            var user = Db.User
+                    .Where(u => u.Email.Equals(Email) && u.Password.Equals(Password))
+                    .SingleOrDefault();
+            return user;
+        }
+
         public User GetUser(int? Id)
         {
             return Db.User.Find(Id);

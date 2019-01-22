@@ -57,5 +57,21 @@ namespace ExamCore.Repositories
                             };
             return Questions.ToList();
         }
+
+        public IEnumerable<Question> GetQuizzBySubject(int? SubjectId)
+        {
+            var Questions = from q in Db.Question
+                            join s in Db.Subject
+                            on q.SubjectId equals s.Id
+                            where q.SubjectId == SubjectId
+                            select new Question
+                            {
+                                Id = q.Id,
+                                SubjectId = q.SubjectId,
+                                Subject = s,
+                                Content = q.Content
+                            };
+            return Questions.ToList();
+        }
     }
 }

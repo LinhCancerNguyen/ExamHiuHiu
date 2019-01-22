@@ -57,7 +57,7 @@ namespace ExamCore
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var connection = @"Server=V00288;Database=ExamEOSDBVersion2;Trusted_Connection=True;user id=sa;password=Cancer2306;";
+            var connection = @"Server=V00288;Database=ExamEOSDBVersion5;Trusted_Connection=True;user id=sa;password=Cancer2306;";
             services.AddDbContext<ExamContext>
             (options => options.UseSqlServer(connection));
         }
@@ -75,6 +75,7 @@ namespace ExamCore
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

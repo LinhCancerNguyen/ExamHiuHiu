@@ -1,36 +1,65 @@
-﻿@model ExamCore.Models.Question
+﻿@model IEnumerable<ExamCore.Models.Option>
 
 @{
-    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Edit</h2>
-
-<h4>Question</h4>
-<hr />
+@{ 
+    int i = 1;
+}
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="SubjectId" class="control-label"></label>
-                <select asp-for="SubjectId" class="form-control" asp-items="ViewBag.SubjectId"></select>
-                <span asp-validation-for="SubjectId" class="text-danger"></span>
+    <div class="col-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <form class="forms-sample" asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="form-group row">
+                            <label asp-for="@item.Question.Subject.Name" class="col-sm-3 col-form-label">Subject</label>
+                            <div class="col-sm-9">
+                                <select type="text" class="form-control" id="exampleInputEmail2" asp-for="@item.Question.Subject.Id" asp-items="@(new SelectList(ViewBag.ListOfSubject, "Id", "Name"))"></select>
+                                <span asp-validation-for="@item.Question.Subject.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="@item.Question.Content" class="col-sm-3 col-form-label">Question</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="exampleInputEmail2" asp-for="@item.Question.Content">
+                                <span asp-validation-for="@item.Question.Content" class="text-danger"></span>
+                            </div>
+                        </div>
+                        break;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <div class="form-group row">
+                            <label asp-for="@item.Content" class="col-sm-3 col-form-label">Option  @(i++)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="exampleInputEmail2" asp-for="@item.Content">
+                                <span asp-validation-for="@item.Content" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <div class="form-group row">
+                            <label asp-for="@item.IsRight" class="col-sm-3 col-form-label">Answer</label>
+                            <div class="col-sm-9">
+                                <select type="text" class="form-control" id="exampleInputEmail2" asp-for="@item.Id" asp-items="@(new SelectList(ViewBag.ListOfOption, "Id", "Content"))"></select>
+                                <span asp-validation-for="@item.Id" class="text-danger"></span>
+                            </div>
+                        </div>
+                        break;
+                    }
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success mr-2">Save</button>
+                        <button asp-action="Index" class="btn btn-light">Cancel</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

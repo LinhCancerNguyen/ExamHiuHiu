@@ -14,5 +14,6 @@ namespace ExamCore.Services
         void Remove(int? Id);
         void Edit(Question _Question);
         IEnumerable<Question> GetAll();
+        IEnumerable<Question> GetQuizzBySubject(int? SubjectId);
     }
 }
